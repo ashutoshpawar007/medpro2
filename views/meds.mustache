@@ -15,6 +15,9 @@
         <td>{{count}}</td>
         <td>{{brand}}</td>
         <td>
+          <a href="/meds/edit/{{mid}}">edit</a>
+        </td>
+        <td>
           <form action="/meds/delete/{{mid}}" method="post">
             <button type="submit" >Delete</button>
           </form>

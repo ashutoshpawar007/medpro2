@@ -11,6 +11,8 @@ app.set('view engine','mustache');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:false}));
+
+//displaying the meds list
 app.get('/meds',(req,res)=>{
   const client = new Client({
     user: 'postgres',
@@ -29,7 +31,7 @@ app.get('/meds',(req,res)=>{
   });
 
 });
-
+// deleting meds
 app.post('/meds/delete/:id',(req,res)=>{
   console.log('deleting id',req.params.id);
 
@@ -53,11 +55,63 @@ app.post('/meds/delete/:id',(req,res)=>{
 
 
 });
+//method for edit
+
+app.get('/meds/edit/:id',(req,res)=>{
+  const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'medical',
+    password: 'test123',
+    port: 5432,
+  });
+  client.connect()
+  .then(()=>{
+    const sql ='SELECT * FROM meds WHERE mid= $1;'
+    const params = [req.params.id];
+    return client.query(sql,params);
+  })
+  .then((results)=>{
+    console.log('results?',results);
+    res.render('meds-edit',{
+      med: results.rows[0]
+    });
+  });
+
+});
+
+//method for edit
+
+//post method for Edit
+
+app.post('/meds/edit/:id',(req,res)=>{
+  const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'medical',
+    password: 'test123',
+    port: 5432,
+  });
+  client.connect()
+  .then(()=>{
+    const sql ='UPDATE meds SET name= $1, count= $2, brand = $3 WHERE mid= $4';
+
+    const params = [req.body.name, req.body.count, req.body.brand,req.params.id];
+    return client.query(sql,params);
+  })
+  .then((results)=>{
+    console.log('results?',results);
+    res.redirect('/meds');
+  });
+
+});
+//post method for Edit
+//med form
 app.get('/add',(req,res)=>{
 
   res.render('med-form');
 });
-
+// med post method for adding meds
 app.post('/meds/add',(req,res)=>{
   console.log('post body',req.body);
 
