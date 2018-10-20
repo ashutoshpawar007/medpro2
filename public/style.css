@@ -1,0 +1,33 @@
+body{
+  font-family: proxima-semibold, Helvetica, Arial, sans-serif;
+
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+   transform: translate(-50%, -50%);
+   color: white;
+   font-size: 1.5em;
+
+}
+
+.centered-heading{
+
+  position: absolute;
+  top: 35%;
+  left: 50%;
+
+ transform: translate(-50%, -50%);
+  color: white;
+  font-size: 4em;
+}
+#continue{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+
+ transform: translate(-50%, -50%);
+}
