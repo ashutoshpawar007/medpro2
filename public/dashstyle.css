@@ -1,0 +1,13 @@
+body{
+
+}
+#dash-title{
+  color: white;
+  background-color: #1de9b6;
+  padding: 5px;
+  font-size: 1em;
+}
+.card-header{
+  background-color: #1de9b6;
+  color: white;
+}

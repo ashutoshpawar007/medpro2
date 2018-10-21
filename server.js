@@ -137,6 +137,32 @@ app.post('/meds/add',(req,res)=>{
   });
 
 });
+
+//link to dashboard
+app.get('/dashboard',(req,res)=>{
+  //connecting to the client
+  const client = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'medical',
+    password: 'test123',
+    port: 5432,
+  });
+// getting the meds count
+  client.connect()
+  .then(()=>{
+    return client.query('SELECT SUM(count) FROM meds');
+  })
+  .then((count)=>{
+    console.log('?count',count);
+    res.render('dashboard',count);
+  });
+//getting the meds count
+//getting the name count
+
+//getting the name count
+});
+//link to the dashboard
 app.listen(5001,()=>{
   console.log('listening to port 5001');
 });
