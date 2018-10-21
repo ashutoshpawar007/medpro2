@@ -151,16 +151,24 @@ app.get('/dashboard',(req,res)=>{
 // getting the meds count
   client.connect()
   .then(()=>{
-    return client.query('SELECT SUM(count) FROM meds');
+    return client.query('SELECT SUM(count) FROM meds;SELECT DISTINCT COUNT(brand) FROM meds');
   })
-  .then((count)=>{
-    console.log('?count',count);
-    res.render('dashboard',count);
-  });
-//getting the meds count
-//getting the name count
+  .then((results)=>{
+    console.log('?results',results[0]);
+    console.log('?results',results[1]);
 
-//getting the name count
+    res.render('dashboard',{n1:results[0].rows,n2:results[1].rows});
+  })
+
+  /*
+  .then(()=>{
+    return client.query('SELECT COUNT(name) FROM meds');
+  })
+  .then((name_count)=>{
+    console.log('?name_count',name_count);
+    res.render('dashboard',count);
+  })*/
+
 });
 //link to the dashboard
 app.listen(5001,()=>{
